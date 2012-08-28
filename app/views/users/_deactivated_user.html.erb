@@ -1,0 +1,9 @@
+<section>
+	<%= gravatar_for user, size: 45 %>
+	<span>
+		<%= link_to user.name, user %>
+	</span>
+	<span>
+		<%= link_to "aktivieren", activate_path(user), confirm: "Mitspieler #{(user.name)} wirklich aktivieren ?", class: "btn" %>
+	</span>
+</section>

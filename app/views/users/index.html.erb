@@ -7,35 +7,70 @@
 <ul class="users">
 	<% if current_user.is_admin? %>
 		<section>
-		<h2>Aktive Mitpieler</h2> 
+		<h2>Aktivierte Mitpieler</h2> 
 		</section>
 	<% end %>
 	<div class="row">
 	<aside>
-		<% c = 0%>
-		<% @active_users.each do |user| %>
+		<% c = 0%>		
+		<% @activated_users.each do |user| %>
 			<% c = 0 if c > 3%>
 			<% c += 1 %>
 			<%case c%>
 				<%when 1%>
 				<div class="span3">
-    				<%= render user %>
+					<%= render partial: 'activated_user', locals: { user: user } %>
 				</div>
 				<%when 2%>
 				<div class="span3">
-    				<%= render user %>
+					<%= render partial: 'activated_user', locals: { user: user } %>
 				</div>
 				<%when 3%>
 				<div class="span3">
-    				<%= render user %>
+					<%= render partial: 'activated_user', locals: { user: user } %>
 				</div>
 				<%when 4%>
 				<div class="span3">
-    				<%= render user %>
+					<%= render partial: 'activated_user', locals: { user: user } %>
 				</div>
 			<%end%>
   		<%end%>
 	</aside>
 	</div>
+</ul>
+<section><div><br></div></section>
+<ul class="users">
+	<% if current_user.is_admin? %>
+	<section>
+		<h2>Deaktivierte Mitpieler</h2> 
+	</section>
+	<div class="row">
+	<aside>
+		<% c = 0%>
+		<% @deactivated_users.each do |user| %>
+			<% c = 0 if c > 3%>
+			<% c += 1 %>
+			<%case c%>
+				<%when 1%>
+				<div class="span3">
+					<%= render :partial => 'deactivated_user', locals: { user: user } %>
+				</div>
+				<%when 2%>
+				<div class="span3">
+					<%= render :partial => 'deactivated_user', locals: { user: user } %>
+				</div>
+				<%when 3%>
+				<div class="span3">
+					<%= render :partial => 'deactivated_user', locals: { user: user } %>
+				</div>
+				<%when 4%>
+				<div class="span3">
+					<%= render :partial => 'deactivated_user', locals: { user: user } %>
+				</div>
+			<%end%>
+  		<%end%>
+	</aside>
+	</div>
+	<% end %>
 </ul>
 

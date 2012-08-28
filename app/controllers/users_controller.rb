@@ -7,15 +7,14 @@ class UsersController < ApplicationController
   skip_filter   :admin,           only: [:index, :edit, :update, :show ]
   skip_filter   :correct_user,    only: [:index, :show, :new, :create]
 
-  
-  
   def new
     @user = User.new
   end
   
   def index
     @users = User.paginate(page: params[:page])
-    @active_users = User.all #.where(deactivated: false)
+    @activated_users = User.all #.where(deactivated: false)
+    @deactivated_users = User.all #.where(deactivated: false)
   end
   
   def create
