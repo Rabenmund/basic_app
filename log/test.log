@@ -1,0 +1,44 @@
+
+
+Started GET "/assets/rails.png" for 127.0.0.1 at 2012-05-03 09:54:32 +0200
+Served asset /rails.png - 200 OK (25ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2012-05-03 09:54:42 +0200
+
+
+Started GET "/static_pages_home" for 127.0.0.1 at 2012-05-03 09:55:53 +0200
+
+
+Started GET "/static_pages/home" for 127.0.0.1 at 2012-05-03 09:56:18 +0200
+Processing by StaticPagesController#home as HTML
+  Rendered static_pages/home.html.erb within layouts/application (4.6ms)
+Completed 200 OK in 25ms (Views: 24.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2012-05-03 09:56:18 +0200
+Compiled static_pages.css  (14ms)  (pid 45599)
+Compiled application.css  (22ms)  (pid 45599)
+Served asset /application.css - 200 OK (57ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2012-05-03 09:56:18 +0200
+Compiled jquery.js  (2ms)  (pid 45599)
+Compiled jquery_ujs.js  (0ms)  (pid 45599)
+Compiled static_pages.js  (95ms)  (pid 45599)
+Compiled application.js  (150ms)  (pid 45599)
+Served asset /application.js - 200 OK (195ms)
+
+
+Started GET "/static_pages/about" for 127.0.0.1 at 2012-05-03 10:03:13 +0200
+Processing by StaticPagesController#about as HTML
+  Rendered static_pages/about.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 3ms (Views: 2.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2012-05-03 10:03:13 +0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2012-05-03 10:03:13 +0200
+Served asset /application.js - 304 Not Modified (0ms)
