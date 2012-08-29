@@ -1,7 +1,7 @@
 <%= form_for(@micropost) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    <%= f.text_area :content, placeholder: "Neue Nachricht (max. #{Micropost::MICROPOST_MAX_CHAR} Zeichen)..." %>
+    <%= f.text_area :content, placeholder: "Neue Kurznachricht (max. #{Micropost::MICROPOST_MAX_CHAR} Zeichen)..." %>
   </div>
-  <%= f.submit "Erstellen", class: "btn btn-large btn-primary" %>
+  <%= f.submit "Kurznachricht senden", class: "btn btn-large btn-success" %>
 <% end %>

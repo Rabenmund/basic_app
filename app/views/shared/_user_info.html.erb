@@ -1,12 +1,12 @@
 <a href="<%= user_path(current_user) %>">
-  <%= gravatar_for current_user, size: 52 %>
+  <%= gravatar_for current_user, size: 72 %>
 </a>
 <h1>
-  <%= current_user.nickname %>
+	<%= current_user.nickname %>
 </h1>
-<span>
-  <%= "1. Platz, 500 Punkte" %>
 </span>
-<span>
-  <%= link_to "Mein Profil", current_user %>
+	<%= link_to current_user, class: "btn" do %>
+	  <i class="icon-user"></i> Profil
+	<% end %>
 </span>
+

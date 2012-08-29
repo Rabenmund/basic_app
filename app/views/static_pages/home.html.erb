@@ -10,8 +10,9 @@
       <%= render 'shared/micropost_form' %>
     </section>
     <section>
-	<%= link_to "Nachrichten abrufen ->", home_path, class: "btn btn-large btn-primary" %>
-	
+	<%= link_to home_path, class: "btn btn-info" do %>
+	  <i class="icon-repeat icon-white"></i> Kurznachrichten aktualisisieren
+	<% end %>
     <%= render 'shared/feed' %>
 	</section>
   </aside>

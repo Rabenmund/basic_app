@@ -2,7 +2,7 @@ class MicropostsController < ApplicationController
   
   skip_filter   :authenticate,    only: []
   skip_filter   :admin,           only: [:create]
-  skip_filter   :correct_user,    only: [:create]
+  skip_filter   :correct_user,    only: [:create, :destroy]
   
   def create
     @micropost = current_user.microposts.build(params[:micropost])
@@ -16,6 +16,7 @@ class MicropostsController < ApplicationController
   end
 
   def destroy
+    @micropost = Micropost.find(params[:id])
     @micropost.destroy
     redirect_to root_path
   end

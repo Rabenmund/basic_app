@@ -6,7 +6,7 @@ class StaticPagesController < ApplicationController
   
   def home
     @micropost  = current_user.microposts.build
-    @feed_items = Micropost.paginate(page: params[:page], per_page: 10)
+    @feed_items = Micropost.paginate(page: params[:page], per_page: 6)
   end
 
   def landing

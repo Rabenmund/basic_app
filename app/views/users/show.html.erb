@@ -1,6 +1,4 @@
 <% provide(:title, @user.name) %>
-<%= link_to "<- Mitspielerliste", users_path%>
-<div><br><br></div>
 <div class="row">
   <aside class="span4">
     <section>
@@ -16,6 +14,6 @@
       <%= render 'shared/stats' %>
     </section>
 	<section>
-	  <%= link_to "Einstellungen", edit_user_path(@user) if correct_user? %>
+	  <%= link_to "Einstellungen", edit_user_path(@user), class: "btn" if correct_user? %>
   </aside>
 </div>
