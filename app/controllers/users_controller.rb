@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:success] = "Einstellungen geändert"
-      redirect_to @user
+      render 'show'
     else
       render 'edit'
     end

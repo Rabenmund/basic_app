@@ -1,5 +1,5 @@
 <section>
-	<%= gravatar_for user, size: 46 %>
+	<a href="<%= user_path(user) %>"> <%= gravatar_for user, size: 46 %> </a>
 	<span>
 		<h5>
 		<%= link_to user.nickname, user %>
