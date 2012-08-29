@@ -1,19 +1,21 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :password, :password_confirmation
+  attr_accessible :name, :email, :password, :password_confirmation, :nickname
   has_secure_password
   has_many :microposts, dependent: :destroy
 
-
-  before_save { |user| user.email = email.downcase }
+  before_save do |user|  
+    user.email = email.downcase
+    user.deactivate! if user.deactivated == nil
+  end
+  
   before_save :create_remember_token
 
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: { maximum: 20, minimum: 5 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence:   true,
-                    format:     { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 6 }
   validates :password_confirmation, presence: true
+  validates :nickname, presence: true, length: { maximum: 20, minimum: 5 }, uniqueness: { case_sensitive: false }
 
   def is_admin?
     admin
@@ -25,20 +27,19 @@ class User < ActiveRecord::Base
   end
   
   def activate!
-    #update_attribute :deactivated, false
+    update_attribute :deactivated, false
   end
   
   def activated?
-    # !deactivated
+    !deactivated
   end
   
   def deactivated?
-    #deactivated
+    deactivated
   end
   
   def deactivate!
-    true
-    # update_attribute :deactivated, true
+    update_attribute :deactivated, true
   end
   
   # to be done

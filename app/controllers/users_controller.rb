@@ -9,12 +9,13 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @user.deactivated = true
   end
   
   def index
     @users = User.paginate(page: params[:page])
-    @activated_users = User.all #.where(deactivated: false)
-    @deactivated_users = User.all #.where(deactivated: false)
+    @activated_users = User.where(deactivated: false)
+    @deactivated_users = User.where(deactivated: true)
   end
   
   def create
@@ -40,7 +41,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:success] = "Einstellungen geändert"
-      sign_in @user
       redirect_to @user
     else
       render 'edit'
