@@ -8,7 +8,7 @@ module UsersHelper
     image_tag(gravatar_url, alt: user.name, class: "gravatar")
   end
   
-  def correct_user?
+  def identic_or_admin?
     current_user?(@user) || current_user.is_admin?
   end
 end

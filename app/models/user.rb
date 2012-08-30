@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :nickname
+  
   has_secure_password
+  
   has_many :microposts, dependent: :destroy
 
   before_save do |user|  

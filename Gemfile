@@ -27,6 +27,12 @@ gem 'jquery-rails'
 group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
+  gem 'database_cleaner'
+  gem 'simplecov'
+  gem 'guard-rspec'
+  gem 'launchy'
+  gem 'forgery'
 end
 
 group :production do

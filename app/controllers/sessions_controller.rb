@@ -22,4 +22,5 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to landing_path
   end
+  
 end

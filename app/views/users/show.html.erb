@@ -14,6 +14,6 @@
       <%= render 'shared/stats' %>
     </section>
 	<section>
-	  <%= link_to "Einstellungen", edit_user_path(@user), class: "btn" if correct_user? %>
+	  <%= link_to "Einstellungen", edit_user_path(@user), class: "btn" if identic_or_admin? %>
   </aside>
 </div>
