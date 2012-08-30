@@ -29,6 +29,7 @@ class UsersController < ApplicationController
   
   def edit
     @user = User.find(params[:id])
+    @user.password == ""
   end
   
   def destroy
@@ -39,6 +40,8 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
+    params[:user][:password_confirmation] = params[:user][:password]
+      
     if @user.update_attributes(params[:user])
       flash[:success] = "Einstellungen geändert"
       render 'show'
