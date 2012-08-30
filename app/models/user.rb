@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
   
   def activate!
-    update_attribute :deactivated, false
+    update_attribute :deactivated, false  
   end
   
   def activated?

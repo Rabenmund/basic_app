@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   skip_filter   :authenticate,    only: []
   skip_filter   :admin,           only: [:index, :edit, :update, :show ]
   skip_filter   :correct_user,    only: [:index, :show, :new, :create]
+  before_filter :check_admin,     only: [:activate]
 
   def new
     @user = User.new
@@ -75,4 +76,14 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
   
+  private
+  
+  def check_admin
+    @user = User.find(params[:id])
+    if @user.is_admin?
+      flash[:error] = "#{@user.name} ist ein Admin und kann nicht aktiviert werden."
+      redirect_to users_path
+    end
+  end
+      
 end
