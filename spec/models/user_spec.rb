@@ -122,6 +122,40 @@ describe User do
   
   describe :methods do
     
+    describe :is_admin? do
+      describe :true do
+        let(:admin) { create :admin }
+        it { admin.is_admin?.should be_true }
+      end
+      describe :false do
+        it { user.is_admin?.should be_false }
+      end
+    end
+    
+    describe :name_role do
+      describe :for_user do
+        it { user.name_role.should eq user.name }
+      end
+      describe :for_admin do
+        let(:admin) { create :admin }
+        it { admin.name_role.should eq "#{admin.name} "+"(admin)"}
+      end
+    end
+    
+    describe :activate! do
+      before { user.activate! }
+      it { user.deactivated.should be_false }
+    end
+    
+    describe :activated? do
+      describe :true do
+        before { user.activate! }
+        it { user.activated?.should be_true }
+      end
+      describe :false do
+        it { user.activated?.should be_false }
+      end
+    end
   end
   
     
