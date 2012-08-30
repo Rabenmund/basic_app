@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       sign_in user
       redirect_back_or home_path
     else
-      flash.now[:error] = 'Email oder Password nicht korrekt'
+      flash.now[:error] = 'Anmeldung nicht korrekt.'
       render 'new'
     end
   end

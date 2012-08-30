@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   skip_filter   :authenticate,    only: []
   skip_filter   :admin,           only: [:index, :edit, :update, :show ]
-  skip_filter   :correct_user,    only: [:index, :show, :new, :create]
+  skip_filter   :correct_user,    only: [:index, :show, :new, :create, :destroy, :deactivate, :activate]
   before_filter :check_admin,     only: [:activate]
 
   def new
@@ -30,30 +30,34 @@ class UsersController < ApplicationController
   
   def edit
     @user = User.find(params[:id])
-    @user.password == ""
   end
   
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "Mitspieler gelöscht."
+    user = User.find(params[:id])
+    if user.destroy
+      flash[:success] = "#{user.name} wurde gelöscht."
+    else
+      flash[:error] = "#{user.name} konnte nicht gelöscht werden."
+      redirect_to user_path(user)
+      return
+    end
     redirect_to users_path
   end
   
   def update
     @user = User.find(params[:id])
     params[:user][:password_confirmation] = params[:user][:password]
-      
     if @user.update_attributes(params[:user])
-      flash[:success] = "Einstellungen geändert"
+      flash[:success] = "Einstellungen geändert."
       render 'show'
     else
+      flash[:error] = "Einstellungen konnten nicht geändert werden."
       render 'edit'
     end
   end
   
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   def deactivate
