@@ -4,6 +4,9 @@ bugs
 
 stories
 -- login für deaktivierte verboten
+-- anmeldung mit email oder nickname
+-- helper methoden aufräumen : in controller
+-- tests schreiben
 
 
 later

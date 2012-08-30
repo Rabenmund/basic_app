@@ -15,6 +15,9 @@ class ApplicationController < ActionController::Base
     if !signed_in? # || current_session.expired? # tbd
       flash[:error] = 'Bitte melde dich an !'
       redirect_to new_session_path
+    elsif (current_user.deactivated? && !current_user.is_admin?)
+      flash[:error] = 'Bitte melde dich mit einem gültigen Benutzer an!'
+      redirect_to new_session_path
     end
   end
   
