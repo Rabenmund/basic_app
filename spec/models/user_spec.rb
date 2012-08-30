@@ -93,6 +93,38 @@ describe User do
     
   end
     
+  describe :before_save do
+    
+    describe :downcase_email do
+      before do
+        @before_email = "UpAnDoWn@example.com"
+        @user = build(:user, email: @before_email)
+        @user.save
+      end
+      it { @user.email.should eq @before_email.downcase }
+    end
+    
+    describe :deactivate do
+      describe :initially do
+        before { @user = build(:user) }
+        it { @user.deactivated.should be_nil }
+      end
+      describe :after_save do
+        it { user.deactivated.should be_true }
+      end
+    end
+    
+    describe :remember_token do
+      its(:remember_token) { should_not be_blank }
+    end
+    
+  end
+  
+  describe :methods do
+    
+  end
+  
+    
 
   # before do
   #   @user = User.new(name: "Example User", email: "user@example.com", 
@@ -172,8 +204,5 @@ describe User do
   #     specify { user_for_invalid_password.should be_false }
   #   end
   # end
-  # describe "remember token" do
-  #   before { @user.save }
-  #   its(:remember_token) { should_not be_blank }
-  # end
+
 end
