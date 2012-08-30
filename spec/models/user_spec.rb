@@ -7,7 +7,6 @@ describe User do
   subject { user }
 
   describe :attributes do
-    
     it { should be_valid }
     it { should respond_to :name }
     it { should respond_to :nickname }
@@ -18,37 +17,29 @@ describe User do
     it { should respond_to :remember_token }
     it { should respond_to :deactivated }
     it { should respond_to :admin }
-    
     it { should allow_mass_assignment_of :name }
     it { should allow_mass_assignment_of :nickname }
     it { should allow_mass_assignment_of :email }
     it { should allow_mass_assignment_of :password }
     it { should allow_mass_assignment_of :password_confirmation }
-    
     it { should_not allow_mass_assignment_of :password_digest }
     it { should_not allow_mass_assignment_of :remember_token }
     it { should_not allow_mass_assignment_of :deactivated }
     it { should_not allow_mass_assignment_of :admin }
-    
   end
   
   describe :associations do
-    
     it { should have_many(:microposts) }
-    
   end
   
   describe :validations do
-    
     it { should validate_presence_of :name }
     it { should validate_presence_of :nickname }
     it { should validate_presence_of :email }
     it { should validate_presence_of :password_confirmation }
-    
     it { should ensure_length_of(:password).is_at_least(6) }
     it { should ensure_length_of(:name).is_at_least(5).is_at_most(20) }
     it { should ensure_length_of(:nickname).is_at_least(5).is_at_most(20) }
-    
     it { should validate_uniqueness_of(:email).case_insensitive }
     it { should validate_uniqueness_of(:nickname).case_insensitive }
 
@@ -71,11 +62,9 @@ describe User do
         end      
       end
     end
-    
   end
   
   describe :db do
-    
     it { should have_db_column(:name).of_type(:string) }
     it { should have_db_column(:email).of_type(:string) }
     it { should have_db_column(:password_digest).of_type(:string) }
@@ -83,14 +72,11 @@ describe User do
     it { should have_db_column(:admin).of_type(:boolean) }
     it { should have_db_column(:deactivated).of_type(:boolean) }
     it { should have_db_column(:nickname).of_type(:string) }
-    
     it { should_not have_db_column :password }
     it { should_not have_db_column :password_confirmation }
-    
     it { should have_db_index(:email).unique(true) }
     it { should have_db_index(:nickname).unique(true) }
     it { should have_db_index(:remember_token) }
-    
   end
     
   describe :before_save do
@@ -101,23 +87,22 @@ describe User do
         @user = build(:user, email: @before_email)
         @user.save
       end
-      it { @user.email.should eq @before_email.downcase }
+      specify { @user.email.should eq @before_email.downcase }
     end
     
     describe :deactivate do
       describe :initially do
         before { @user = build(:user) }
-        it { @user.deactivated.should be_nil }
+        specify { @user.deactivated.should be_nil }
       end
       describe :after_save do
-        it { user.deactivated.should be_true }
+        specify { user.deactivated.should be_true }
       end
     end
     
     describe :remember_token do
       its(:remember_token) { should_not be_blank }
     end
-    
   end
   
   describe :methods do
@@ -125,10 +110,10 @@ describe User do
     describe :is_admin? do
       describe :true do
         let(:admin) { create :admin }
-        it { admin.is_admin?.should be_true }
+        specify { admin.is_admin?.should be_true }
       end
       describe :false do
-        it { user.is_admin?.should be_false }
+        specify { user.is_admin?.should be_false }
       end
     end
     
@@ -138,37 +123,37 @@ describe User do
       end
       describe :for_admin do
         let(:admin) { create :admin }
-        it { admin.name_role.should eq "#{admin.name} "+"(admin)"}
+        specify { admin.name_role.should eq "#{admin.name} "+"(admin)"}
       end
     end
     
     describe :activate! do
       before { user.activate! }
-      it { user.deactivated.should be_false }
+      specify { user.deactivated.should be_false }
     end
     
     describe :activated? do
       describe :true do
         before { user.activate! }
-        it { user.activated?.should be_true }
+        specify { user.activated?.should be_true }
       end
       describe :false do
-        it { user.activated?.should be_false }
+        specify { user.activated?.should be_false }
       end
     end
   
     describe :deactivate! do
       before { user.deactivate! }
-      it { user.deactivated.should be_true }
+      specify { user.deactivated.should be_true }
     end
     
     describe :deactivated? do
       describe :true do
         before { user.activate! }
-        it { user.deactivated?.should be_false }
+        specify { user.deactivated?.should be_false }
       end
       describe :false do
-        it { user.deactivated?.should be_true }
+        specify { user.deactivated?.should be_true }
       end
     end
   end

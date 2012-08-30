@@ -9,4 +9,9 @@ FactoryGirl.define do
       admin                   true
     end
   end
+  
+  factory :micropost, class: Micropost do
+    content                   { Forgery::LoremIpsum.characters(200) }  
+    user
+  end   
 end
