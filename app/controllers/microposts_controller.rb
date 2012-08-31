@@ -1,3 +1,5 @@
+#!/bin/env ruby
+# encoding: utf-8
 class MicropostsController < ApplicationController
   
   skip_filter   :authenticate,    only: []
@@ -10,21 +12,18 @@ class MicropostsController < ApplicationController
       flash[:success] = "Kurznachricht erstellt."
       redirect_to root_path
     else
-      @feed_items = []
+      flash[:error] = "Kurznachricht konnte nicht erstellt werden."
       render 'static_pages/home'
     end
   end
 
   def destroy
     @micropost = Micropost.find(params[:id])
-    @micropost.destroy
+    if @micropost.destroy
+      flash[:success] = "Kurznachricht gelöscht."
+    else
+      flash[:error] = "Kurznachricht konnte nicht gelöscht werden."
+    end
     redirect_to root_path
   end
-  
-  private
-
-    def correct_user
-      @micropost = current_user.microposts.find_by_id(params[:id])
-      redirect_to root_path if @micropost.nil?
-    end
 end

@@ -7,7 +7,6 @@ include SessionsHelper
 describe SessionsController do
   
   let(:user) { create :user }
-#  before { sign_in(user) }
   
   subject { controller }
 
