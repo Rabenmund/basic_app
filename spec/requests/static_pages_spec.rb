@@ -7,7 +7,7 @@ describe "Static pages" do
   before { user.activate!; signin user }
   
   describe :home do
-    before { visit home_path }
+    before { visit root_path }
     it { should_not have_selector('title', text: '| Home') }
     it { should have_content user.nickname }
     it { should have_link("Startseite", href: root_path) }
@@ -31,5 +31,32 @@ describe "Static pages" do
       end
     end
   end
+  
+  describe :landing do
+    before { visit landing_path }
+    it { should_not have_selector('title', text: '| Landing') }
+    it { should have_link("Anmelden", href: new_session_path) }
+    it { should have_link("Kontakt", href: contact_path) }
+  end
 
+  describe :about do
+    before { visit about_path }
+    it { should have_selector('title', text: '| About Us') }
+    it { should have_link("Abmelden", href: session_path(user)) }
+    it { should have_link("Kontakt", href: contact_path) }
+  end
+  
+  describe :contact do
+    before { signout user; visit contact_path }
+    it { should have_selector('title', text: '| Contact') }
+    it { should have_link("Anmelden", href: signin_path) }
+    it { should have_link("Kontakt", href: contact_path) }
+  end
+  
+  describe :help do
+    before { visit help_path }
+    it { should have_selector('title', text: '| Help') }
+    it { should have_link("Abmelden", href: session_path(user)) }
+    it { should have_link("Kontakt", href: contact_path) }
+  end
 end
