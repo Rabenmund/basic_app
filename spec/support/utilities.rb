@@ -1,9 +1,10 @@
 include ApplicationHelper
 
-def valid_signin(user)
-  fill_in "Email",    with: user.email
-  fill_in "Password", with: user.password
-  click_button "Sign in"
+def signin(user)
+  visit new_session_path
+  fill_in "session_auth",    with: user.email
+  fill_in "session_password", with: user.password
+  click_button "submit"
 end
 
 RSpec::Matchers.define :have_error_message do |message|
