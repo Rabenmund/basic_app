@@ -20,6 +20,11 @@ describe "Static pages" do
     it { should have_link("Kontakt", href: contact_path) }
     it { should have_selector("textarea", id: "micropost_content") }
     it { should have_selector("i", id: "Kurznachrichten aktualisieren") }
+    
+    describe :enter_micropost do
+      10.times { fill_in "micropost_content", with: attributes_for(:micropost); click_button "commit" }
+      save_and_open_page
+    end
   end
 
 end
