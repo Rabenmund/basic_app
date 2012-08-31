@@ -22,8 +22,13 @@ describe "Static pages" do
     it { should have_selector("i", id: "Kurznachrichten aktualisieren") }
     
     describe :enter_micropost do
-      10.times { fill_in "micropost_content", with: attributes_for(:micropost); click_button "commit" }
-      save_and_open_page
+      before { fill_in "micropost_content", with: "x"*200; click_button "commit" }
+      it { should have_content("x"*200) }
+      describe :can_be_seen_by_other_user do
+        before { @user = create :user; @user.activate!; signin @user }
+        it { should have_content("x"*200) }
+        it { should have_link("#{user.nickname}", href: user_path(Micropost.last.user))}
+      end
     end
   end
 

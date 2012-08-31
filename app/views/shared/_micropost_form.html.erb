@@ -3,5 +3,5 @@
   <div class="field">
     <%= f.text_area :content, placeholder: "Neue Kurznachricht (max. #{Micropost::MICROPOST_MAX_CHAR} Zeichen)..." %>
   </div>
-  <%= f.submit "Kurznachricht senden", class: "btn btn-large btn-success" %>
+  <%= f.submit "Kurznachricht senden", class: "btn btn-large btn-success", id: "commit" %>
 <% end %>
