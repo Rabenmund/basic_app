@@ -36,8 +36,9 @@ describe User do
     it { should validate_presence_of :name }
     it { should validate_presence_of :nickname }
     it { should validate_presence_of :email }
-    it { should validate_presence_of :password_confirmation }
-    it { should ensure_length_of(:password).is_at_least(6) }
+    it { User.create.should validate_presence_of :password_confirmation } #on create
+    it { User.create.should validate_presence_of :password }              #on create
+    it { User.create.should ensure_length_of(:password).is_at_least(6) }
     it { should ensure_length_of(:name).is_at_least(5).is_at_most(20) }
     it { should ensure_length_of(:nickname).is_at_least(5).is_at_most(20) }
     it { should validate_uniqueness_of(:email).case_insensitive }

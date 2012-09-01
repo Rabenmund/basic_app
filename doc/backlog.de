@@ -1,9 +1,9 @@
 bugs
-
+-- nach änderung fliegt der user im authenticate immer raus
 
 
 stories
--- tests schreiben
+-- tests schreiben (model test user : on create validation checken)
 
 
 later

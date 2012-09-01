@@ -1,9 +1,13 @@
+#!/bin/env ruby
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe "Static pages" do
 
-  subject { page }
-  let(:user) { create :user }
+  subject     { page }
+  let(:user)  { create :user }
+  let(:admin) { create :admin}
   before { user.activate!; signin user }
   
   describe :home do
@@ -28,6 +32,11 @@ describe "Static pages" do
         before { @user = create :user; @user.activate!; signin @user }
         it { should have_content("x"*200) }
         it { should have_link("#{user.nickname}", href: user_path(Micropost.last.user))}
+      end
+      describe :can_be_destroyed_by_admin do
+        before { signin admin }
+        it { should have_content("x"*200) }
+        it { should have_link("löschen", href: micropost_path(Micropost.last), method: :delete)}
       end
     end
   end
