@@ -1,5 +1,5 @@
 BasicApp::Application.routes.draw do
-  resources :users, except: [:destroy]
+  resources :users #, except: [:destroy]
   get '/signup',          to: 'users#new'
   get '/activate/:id',    to: 'users#activate',         as: :activate
   get '/deactivate/:id',  to: 'users#deactivate',       as: :deactivate
