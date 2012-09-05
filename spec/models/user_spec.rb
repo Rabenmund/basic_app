@@ -2,21 +2,28 @@ require 'spec_helper'
 
 describe User do
 
-  let(:user) { create :user }
-  
+  let(:user) { build :user }
   subject { user }
 
   describe :attributes do
     it { should be_valid }
-    it { should respond_to :name }
-    it { should respond_to :nickname }
-    it { should respond_to :email }
+    it { should have_db_column(:name).of_type(:string) }
+    it { should have_db_column(:email).of_type(:string) }
+    it { should have_db_column(:password_digest).of_type(:string) }
+    it { should have_db_column(:remember_token).of_type(:string) }
+    it { should have_db_column(:admin).of_type(:boolean) }
+    it { should have_db_column(:deactivated).of_type(:boolean) }
+    it { should have_db_column(:nickname).of_type(:string) }
+    it { should_not have_db_column :password }
+    it { should_not have_db_column :password_confirmation }
+    it { should have_db_index(:email).unique(true) }
+    it { should have_db_index(:nickname).unique(true) }
+    it { should have_db_index(:remember_token) }
     it { should respond_to :password }
     it { should respond_to :password_confirmation }
-    it { should respond_to :password_digest }
-    it { should respond_to :remember_token }
-    it { should respond_to :deactivated }
-    it { should respond_to :admin }
+  end
+  
+  describe :mass_assignment do
     it { should allow_mass_assignment_of :name }
     it { should allow_mass_assignment_of :nickname }
     it { should allow_mass_assignment_of :email }
@@ -41,8 +48,11 @@ describe User do
     it { User.create.should ensure_length_of(:password).is_at_least(6) }
     it { should ensure_length_of(:name).is_at_least(5).is_at_most(20) }
     it { should ensure_length_of(:nickname).is_at_least(5).is_at_most(20) }
-    it { should validate_uniqueness_of(:email).case_insensitive }
-    it { should validate_uniqueness_of(:nickname).case_insensitive }
+    describe "should validate_uniqueness_of email and nickname" do
+      before { user.save }
+      it { should validate_uniqueness_of(:email).case_insensitive }
+      it { should validate_uniqueness_of(:nickname).case_insensitive }
+    end
 
     describe "when email format is invalid" do
       it "should be invalid" do
@@ -64,21 +74,6 @@ describe User do
       end
     end
   end
-  
-  describe :db do
-    it { should have_db_column(:name).of_type(:string) }
-    it { should have_db_column(:email).of_type(:string) }
-    it { should have_db_column(:password_digest).of_type(:string) }
-    it { should have_db_column(:remember_token).of_type(:string) }
-    it { should have_db_column(:admin).of_type(:boolean) }
-    it { should have_db_column(:deactivated).of_type(:boolean) }
-    it { should have_db_column(:nickname).of_type(:string) }
-    it { should_not have_db_column :password }
-    it { should_not have_db_column :password_confirmation }
-    it { should have_db_index(:email).unique(true) }
-    it { should have_db_index(:nickname).unique(true) }
-    it { should have_db_index(:remember_token) }
-  end
     
   describe :before_save do
     
@@ -97,11 +92,13 @@ describe User do
         specify { @user.deactivated.should be_nil }
       end
       describe :after_save do
+        before { user.save }
         specify { user.deactivated.should be_true }
       end
     end
     
     describe :remember_token do
+      before { user.save }
       its(:remember_token) { should_not be_blank }
     end
   end
@@ -134,6 +131,7 @@ describe User do
     end
     
     describe :activated? do
+      before { user.save }
       describe :true do
         before { user.activate! }
         specify { user.activated?.should be_true }
@@ -149,6 +147,7 @@ describe User do
     end
     
     describe :deactivated? do
+      before { user.save }
       describe :true do
         before { user.activate! }
         specify { user.deactivated?.should be_false }

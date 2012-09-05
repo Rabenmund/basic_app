@@ -26,16 +26,16 @@ describe "Static pages" do
     it { should have_selector("i", id: "Kurznachrichten aktualisieren") }
     
     describe :enter_micropost do
-      before { fill_in "micropost_content", with: "x"*200; click_button "commit" }
-      it { should have_content("x"*200) }
+      before { fill_in "micropost_content", with: "Test the Post with more than 30 characters and a looooooooooooooooooooooooooooong word"; click_button "commit" }
+      it { should have_content("Test the Post with more than 30 characters") }
       describe :can_be_seen_by_other_user do
         before { @user = create :user; @user.activate!; signin @user }
-        it { should have_content("x"*200) }
+        it { should have_content("Test the Post with more than 30 characters") }
         it { should have_link("#{user.nickname}", href: user_path(Micropost.last.user))}
       end
       describe :can_be_destroyed_by_admin do
         before { signin admin }
-        it { should have_content("x"*200) }
+        it { should have_content("Test the Post with more than 30 characters") }
         it { should have_link("löschen", href: micropost_path(Micropost.last), method: :delete)}
       end
     end

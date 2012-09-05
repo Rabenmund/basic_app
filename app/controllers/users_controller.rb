@@ -46,9 +46,10 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
-    params[:user][:password_confirmation] = params[:user][:password]
+#    params[:user][:password_confirmation] = params[:user][:password]
     if @user.update_attributes(params[:user])
       flash[:success] = "Einstellungen geändert."
+      sign_in @user
       render 'show'
     else
       flash[:error] = "Einstellungen konnten nicht geändert werden."
